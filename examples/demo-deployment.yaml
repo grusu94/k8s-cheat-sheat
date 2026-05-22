@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  labels:
+    app: demo-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo-deployment
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 3
+  template:
+    metadata:
+      labels:
+        app: demo-deployment
+    spec:
+      containers:
+      - name: demo-deployment
+        image: argoproj/rollouts-demo:blue
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

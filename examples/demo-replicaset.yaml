@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: demo-replicaset
+  labels:
+    app: demo-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo-replicaset
+  template:
+    metadata:
+      labels:
+        app: demo-replicaset
+    spec:
+      containers:
+      - name: demo-replicaset
+        image: argoproj/rollouts-demo:green
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
